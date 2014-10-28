@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringXchg", "LuaStringXchg\StringXchg.csproj", "{F1E6B015-CDAA-468C-9F12-A44C811C5D54}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringXchg", "StringXchg\StringXchg.csproj", "{F1E6B015-CDAA-468C-9F12-A44C811C5D54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
