@@ -213,12 +213,65 @@ namespace ExcelFinder
             {
                 var items = listResult.SelectedItems[0].SubItems;
                 var excelPath = items[0].Text;
-                var sheetName = items[1].Text;
-                var address = items[2].Text;
-                Process.Start("excel.exe", excelPath + "#" + sheetName + "!" + address);
+                Process.Start("excel.exe", excelPath);
             }
             catch
             {
+            }
+        }
+
+        private void listResult_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                var copyData = string.Join(Environment.NewLine, listResult.SelectedItems.OfType<ListViewItem>()
+                    .Select(item => string.Join(",", item.SubItems.OfType<ListViewItem.ListViewSubItem>()
+                    .Select(subItem => subItem.Text))));
+
+                Clipboard.SetText(copyData);
+            }
+        }
+
+        private void buttonExport_Click(object sender, EventArgs e)
+        {
+            var chooser = new SaveFileDialog
+            {
+                Title =  "Export result to excel",
+                Filter = "Excel Files|*.xlsx"
+            };
+            if (chooser.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            var resultFile = "";
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Result");
+                var row = 1;
+                foreach (ListViewItem item in listResult.Items)
+                {
+                    var excelPath = item.SubItems[0].Text;
+                    var sheetName = item.SubItems[1].Text;
+                    var address = item.SubItems[2].Text;
+                    var text = item.SubItems[3].Text;
+
+                    worksheet.Cell(row, 1).FormulaA1 =  string.Format("HYPERLINK(\"[{0}]{1}!{2}\", \"{0}\")", excelPath, sheetName, address);
+                    worksheet.Cell(row, 2).Value = sheetName;
+                    worksheet.Cell(row, 3).Value = address;
+                    worksheet.Cell(row, 4).Value = text;
+                    ++row;
+                }
+                worksheet.Columns().AdjustToContents();
+
+                resultFile = chooser.FileName;
+                if (File.Exists(resultFile))
+                    File.Delete(resultFile);
+
+                workbook.SaveAs(chooser.FileName);
+            }
+
+            if (!string.IsNullOrWhiteSpace(resultFile) && File.Exists(resultFile))
+            {
+                Process.Start("excel.exe", resultFile);
             }
         }
     }

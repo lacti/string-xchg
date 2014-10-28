@@ -40,12 +40,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.listResult = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.backgroundFinder = new System.ComponentModel.BackgroundWorker();
             this.buttonRemoveFolder = new System.Windows.Forms.Button();
             this.buttonFindFolder = new System.Windows.Forms.Button();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonExport = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -128,7 +129,7 @@
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(75, 25);
             this.buttonSearch.TabIndex = 6;
-            this.buttonSearch.Text = "Search";
+            this.buttonSearch.Text = "&Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
@@ -160,11 +161,17 @@
             this.listResult.UseCompatibleStateImageBehavior = false;
             this.listResult.View = System.Windows.Forms.View.Details;
             this.listResult.DoubleClick += new System.EventHandler(this.listResult_DoubleClick);
+            this.listResult.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listResult_KeyDown);
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "File";
-            this.columnHeader1.Width = 381;
+            this.columnHeader1.Width = 333;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Sheet";
+            this.columnHeader4.Width = 100;
             // 
             // columnHeader2
             // 
@@ -174,7 +181,7 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Text";
-            this.columnHeader3.Width = 376;
+            this.columnHeader3.Width = 298;
             // 
             // backgroundFinder
             // 
@@ -189,7 +196,7 @@
             this.buttonRemoveFolder.Name = "buttonRemoveFolder";
             this.buttonRemoveFolder.Size = new System.Drawing.Size(75, 25);
             this.buttonRemoveFolder.TabIndex = 3;
-            this.buttonRemoveFolder.Text = "Remove";
+            this.buttonRemoveFolder.Text = "&Remove";
             this.buttonRemoveFolder.UseVisualStyleBackColor = true;
             this.buttonRemoveFolder.Click += new System.EventHandler(this.buttonRemoveFolder_Click);
             // 
@@ -200,20 +207,26 @@
             this.buttonFindFolder.Name = "buttonFindFolder";
             this.buttonFindFolder.Size = new System.Drawing.Size(75, 25);
             this.buttonFindFolder.TabIndex = 2;
-            this.buttonFindFolder.Text = "Add";
+            this.buttonFindFolder.Text = "&Add";
             this.buttonFindFolder.UseVisualStyleBackColor = true;
             this.buttonFindFolder.Click += new System.EventHandler(this.buttonFindFolder_Click);
             // 
-            // columnHeader4
+            // buttonExport
             // 
-            this.columnHeader4.Text = "Sheet";
-            this.columnHeader4.Width = 100;
+            this.buttonExport.Location = new System.Drawing.Point(779, 202);
+            this.buttonExport.Name = "buttonExport";
+            this.buttonExport.Size = new System.Drawing.Size(75, 26);
+            this.buttonExport.TabIndex = 10;
+            this.buttonExport.Text = "E&xport";
+            this.buttonExport.UseVisualStyleBackColor = true;
+            this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
             // 
             // FormFinder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(866, 582);
+            this.Controls.Add(this.buttonExport);
             this.Controls.Add(this.listResult);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.buttonFindFolder);
@@ -253,6 +266,7 @@
         private System.Windows.Forms.Button buttonRemoveFolder;
         private System.Windows.Forms.Button buttonFindFolder;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.Button buttonExport;
     }
 }
 
