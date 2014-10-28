@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LuaStringXchg.Properties {
+namespace StringXchg.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -7,8 +7,8 @@
     <ProjectGuid>{F1E6B015-CDAA-468C-9F12-A44C811C5D54}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LuaStringXchg</RootNamespace>
-    <AssemblyName>LuaStringXchg</AssemblyName>
+    <RootNamespace>StringXchg</RootNamespace>
+    <AssemblyName>StringXchg</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -64,28 +64,23 @@
     <Reference Include="ClosedXML">
       <HintPath>..\packages\ClosedXML.0.75.0\lib\net40-client\ClosedXML.dll</HintPath>
     </Reference>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exchanger\AbstractExchanger.cs" />
+    <Compile Include="Exchanger\IExchanger.cs" />
     <Compile Include="FormExchanger.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormExchanger.Designer.cs">
       <DependentUpon>FormExchanger.cs</DependentUpon>
     </Compile>
+    <Compile Include="Exchanger\LuaExchanger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormExchanger.resx">
@@ -101,7 +96,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="LuaStringXchg_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

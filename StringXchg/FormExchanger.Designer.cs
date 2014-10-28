@@ -1,4 +1,4 @@
-﻿namespace LuaStringXchg
+﻿namespace StringXchg
 {
     partial class FormExchanger
     {

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace LuaStringXchg
+namespace StringXchg
 {
     static class Program
     {
