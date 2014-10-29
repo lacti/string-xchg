@@ -213,7 +213,7 @@ namespace ExcelFinder
             {
                 var items = listResult.SelectedItems[0].SubItems;
                 var excelPath = items[0].Text;
-                Process.Start("excel.exe", excelPath);
+                Process.Start("excel.exe", "\"" + excelPath + "\"");
             }
             catch
             {
@@ -271,7 +271,7 @@ namespace ExcelFinder
 
             if (!string.IsNullOrWhiteSpace(resultFile) && File.Exists(resultFile))
             {
-                Process.Start("excel.exe", resultFile);
+                Process.Start("excel.exe", "\"" + resultFile + "\"");
             }
         }
     }
