@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringXchg", "StringXchg\StringXchg.csproj", "{F1E6B015-CDAA-468C-9F12-A44C811C5D54}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelFinder", "ExcelFinder\ExcelFinder.csproj", "{8CF1C0CA-06F8-4E1D-A264-BC8EB204FC6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DraftHelper", "DraftHelper\DraftHelper.csproj", "{F061D40B-30E4-4DEA-A762-83AE461F267B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,10 @@ Global
 		{8CF1C0CA-06F8-4E1D-A264-BC8EB204FC6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CF1C0CA-06F8-4E1D-A264-BC8EB204FC6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CF1C0CA-06F8-4E1D-A264-BC8EB204FC6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F061D40B-30E4-4DEA-A762-83AE461F267B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F061D40B-30E4-4DEA-A762-83AE461F267B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F061D40B-30E4-4DEA-A762-83AE461F267B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F061D40B-30E4-4DEA-A762-83AE461F267B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
