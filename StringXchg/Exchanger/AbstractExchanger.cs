@@ -1,11 +1,19 @@
 using System.IO;
 using System.Text.RegularExpressions;
+using StringXchg.Common;
 
 namespace StringXchg.Exchanger
 {
     internal abstract class AbstractExchanger : IExchanger
     {
         protected static readonly Regex IdRegex = new Regex("#([^#]+)#", RegexOptions.Compiled);
+
+        protected readonly ILogger Logger;
+
+        protected AbstractExchanger(ILogger logger)
+        {
+            Logger = logger;
+        }
 
         public bool OneSheet { protected get; set; }
         public bool CopyTranslated { protected get; set; }

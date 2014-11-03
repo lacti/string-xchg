@@ -13,7 +13,7 @@ namespace StringXchg
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormExchanger());
+            Application.Run(new FormTools());
         }
     }
 }

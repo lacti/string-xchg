@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using ClosedXML.Excel;
+using StringXchg.Common;
 
 namespace StringXchg.Exchanger
 {
@@ -15,6 +17,10 @@ namespace StringXchg.Exchanger
         private int _index;
         private int _row;
 
+        public LuaExchanger(ILogger logger) : base(logger)
+        {
+        }
+
         private void ResetContext()
         {
             _index = 1;
@@ -23,10 +29,13 @@ namespace StringXchg.Exchanger
 
         public override string ExchangeToExcel(string sourceFolder)
         {
-            ResetContext();
+            if (!Directory.Exists(sourceFolder))
+            {
+                Logger.ReportLog("Cannot find Lua folder: {0}", sourceFolder);
+                return null;
+            }
 
-            var outputPath = GetOutputPath(sourceFolder);
-            EnsurePath(outputPath);
+            ResetContext();
 
             var workbook = new XLWorkbook();
             var oneSheet = OneSheet ? workbook.Worksheets.Add("forL10N") : null;
@@ -38,46 +47,58 @@ namespace StringXchg.Exchanger
                 if (!OneSheet)
                     _row = 1;
 
+                Logger.ReportLog("Process... " + fileName);
                 var worksheet = OneSheet ? oneSheet : workbook.Worksheets.Add(fileName);
-                var lines = new List<string>();
                 foreach (var line in File.ReadAllLines(file, Utf8))
                 {
-                    var replaced = line;
-                    if (IsLuaComment(replaced))
-                    {
-                        var comment = ExtractStringFromComment(replaced);
-                        if (comment.Any(IsNotAscii))
-                        {
-                            var id = MakeStringId(fileName);
-                            var text = comment;
-
-                            SetValueToWorksheet(worksheet, id, text);
-                            replaced = ExtractStringBeforeComment(replaced) + ToStringId(id);
-
-                            NextIndex();
-                        }
-                    }
-                    replaced = StringRegex.Replace(replaced, match =>
-                    {
-                        var text = match.Groups[1].Value;
-
-                        if (!text.Any(IsNotAscii))
-                            return ToQuote(text);
-                        var id = MakeStringId(fileName);
-                        SetValueToWorksheet(worksheet, id, text);
-
-                        NextIndex();
-                        return ToStringId(id);
-                    });
-                    lines.Add(replaced);
+                    ReplaceStringToId(fileName, line, (id, text) => SetValueToWorksheet(worksheet, id, text));
                 }
-                File.WriteAllLines(Path.Combine(outputPath, Path.GetFileName(file)), lines.ToArray(), Utf8);
             }
 
-            var excelPath = Path.Combine(outputPath, Path.GetFileNameWithoutExtension(sourceFolder) + ".xlsx");
+            var excelPath = Path.Combine(Path.GetDirectoryName(sourceFolder), Path.GetFileNameWithoutExtension(sourceFolder) + ".xlsx");
             workbook.SaveAs(excelPath);
 
+            Logger.ReportLog("Completed({0})", _index);
+            Logger.ReportLog(excelPath);
+
             return excelPath;
+        }
+
+        private string ReplaceStringToId(string fileName, string line)
+        {
+            return ReplaceStringToId(fileName, line, (id, text) => { });
+        }
+
+        private string ReplaceStringToId(string fileName, string line, Action<string, string> callback)
+        {
+            var replaced = line;
+            if (IsLuaComment(replaced))
+            {
+                var comment = ExtractStringFromComment(replaced);
+                if (comment.Any(IsNotAscii))
+                {
+                    var id = MakeStringId(fileName);
+                    var text = comment;
+
+                    callback(id, text);
+                    replaced = ExtractStringBeforeComment(replaced) + ToStringId(id);
+
+                    NextIndex();
+                }
+            }
+            replaced = StringRegex.Replace(replaced, match =>
+            {
+                var text = match.Groups[1].Value;
+
+                if (!text.Any(IsNotAscii))
+                    return ToQuote(text);
+                var id = MakeStringId(fileName);
+                callback(id, text);
+
+                NextIndex();
+                return ToStringId(id);
+            });
+            return replaced;
         }
 
         private void NextIndex()
@@ -117,21 +138,36 @@ namespace StringXchg.Exchanger
 
         public override string ExchangeToText(string excelPath, string fromFolder)
         {
-            var stringMap = new Dictionary<string, string>();
-            using (var workbook = new XLWorkbook(excelPath))
+            if (!File.Exists(excelPath))
             {
-                foreach (var worksheet in workbook.Worksheets)
-                {
-                    for (var row = 1; ; ++row)
-                    {
-                        var id = worksheet.Cell(row, 1).Value;
-                        if (id == null) break;
-                        if (string.IsNullOrWhiteSpace(id.ToString())) break;
+                Logger.ReportLog("Cannot find Excel file: {0}", excelPath);
+                return null;
+            }
 
-                        var text = worksheet.Cell(row, 3).Value;
-                        stringMap.Add(id.ToString(), text != null ? text.ToString() : "");
-                    }
+            if (!Directory.Exists(fromFolder))
+            {
+                Logger.ReportLog("Cannot find From folder: {0}", fromFolder);
+                return null;
+            }
+
+            var stringMap = new Dictionary<string, string>();
+            try
+            {
+                using (var workbook = new XLWorkbook(excelPath))
+                foreach (var worksheet in workbook.Worksheets)
+                for (var row = 1; ; ++row)
+                {
+                    var id = worksheet.Cell(row, 1).Value;
+                    if (id == null) break;
+                    if (string.IsNullOrWhiteSpace(id.ToString())) break;
+
+                    var text = worksheet.Cell(row, 3).Value;
+                    stringMap.Add(id.ToString(), text != null ? text.ToString() : "");
                 }
+            }
+            catch (Exception e)
+            {
+                Logger.ReportLog(e);
             }
 
             var outputPath = GetOutputPath(fromFolder);
@@ -139,8 +175,13 @@ namespace StringXchg.Exchanger
 
             foreach (var file in Directory.GetFiles(fromFolder, "*.lua", SearchOption.AllDirectories))
             {
-                File.WriteAllLines(Path.Combine(outputPath, Path.GetFileName(file)), File.ReadAllLines(file, Utf8).Select(
-                    line => IdRegex.Replace(line, match =>
+                ResetContext();
+                var fileName = Path.GetFileNameWithoutExtension(file);
+
+                Logger.ReportLog("Process... " + fileName);
+                File.WriteAllLines(Path.Combine(outputPath, Path.GetFileName(file)), File.ReadAllLines(file, Utf8)
+                    .Select(line => ReplaceStringToId(fileName, line))
+                    .Select(line => IdRegex.Replace(line, match =>
                     {
                         var id = match.Groups[1].Value;
                         string text;
@@ -150,6 +191,9 @@ namespace StringXchg.Exchanger
                         return CheckIfCommentString(line, id) ? text : ToQuote(text);
                     })).ToArray(), Utf8);
             }
+
+            Logger.ReportLog("Completed.");
+            Logger.ReportLog(outputPath);
 
             return outputPath;
         }

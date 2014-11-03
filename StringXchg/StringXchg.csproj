@@ -57,6 +57,7 @@
     </Reference>
     <Reference Include="DocumentFormat.OpenXml">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -66,19 +67,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ILogger.cs" />
+    <Compile Include="DraftHelper\AutoSubstitutor.cs" />
+    <Compile Include="DraftHelper\ReferenceBuilder.cs" />
     <Compile Include="Exchanger\AbstractExchanger.cs" />
     <Compile Include="Exchanger\IExchanger.cs" />
-    <Compile Include="FormExchanger.cs">
+    <Compile Include="FormTools.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormExchanger.Designer.cs">
-      <DependentUpon>FormExchanger.cs</DependentUpon>
+    <Compile Include="FormTools.Designer.cs">
+      <DependentUpon>FormTools.cs</DependentUpon>
     </Compile>
     <Compile Include="Exchanger\LuaExchanger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormExchanger.resx">
-      <DependentUpon>FormExchanger.cs</DependentUpon>
+    <EmbeddedResource Include="FormTools.resx">
+      <DependentUpon>FormTools.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -91,7 +95,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
-    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
