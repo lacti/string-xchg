@@ -9,7 +9,7 @@ namespace StringXchg.Exchanger
 {
     internal class LuaExchanger : AbstractExchanger
     {
-        private static readonly Regex StringRegex = new Regex("\"([^\"]+)\"", RegexOptions.Compiled);
+        private static readonly Regex StringRegex = new Regex("\"([^\"]*)\"", RegexOptions.Compiled);
         private static readonly Encoding Utf8 = new UTF8Encoding(false);
 
         private int _index;
@@ -62,7 +62,7 @@ namespace StringXchg.Exchanger
                         var text = match.Groups[1].Value;
 
                         if (!text.Any(IsNotAscii))
-                            return text;
+                            return ToQuote(text);
                         var id = MakeStringId(fileName);
                         SetValueToWorksheet(worksheet, id, text);
 

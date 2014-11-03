@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkCopyTranslated = new System.Windows.Forms.CheckBox();
+            this.checkOneSheet = new System.Windows.Forms.CheckBox();
             this.buttonExport = new System.Windows.Forms.Button();
             this.textSourceFolder = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,8 +40,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textFromFolder = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.checkOneSheet = new System.Windows.Forms.CheckBox();
-            this.checkCopyTranslated = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -51,18 +51,43 @@
             this.groupBox1.Controls.Add(this.buttonExport);
             this.groupBox1.Controls.Add(this.textSourceFolder);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(10, 10);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(616, 114);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(539, 91);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "to excel";
             // 
+            // checkCopyTranslated
+            // 
+            this.checkCopyTranslated.AutoSize = true;
+            this.checkCopyTranslated.Location = new System.Drawing.Point(180, 62);
+            this.checkCopyTranslated.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkCopyTranslated.Name = "checkCopyTranslated";
+            this.checkCopyTranslated.Size = new System.Drawing.Size(111, 16);
+            this.checkCopyTranslated.TabIndex = 3;
+            this.checkCopyTranslated.Text = "copy translated";
+            this.checkCopyTranslated.UseVisualStyleBackColor = true;
+            // 
+            // checkOneSheet
+            // 
+            this.checkOneSheet.AutoSize = true;
+            this.checkOneSheet.Location = new System.Drawing.Point(77, 62);
+            this.checkOneSheet.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkOneSheet.Name = "checkOneSheet";
+            this.checkOneSheet.Size = new System.Drawing.Size(80, 16);
+            this.checkOneSheet.TabIndex = 3;
+            this.checkOneSheet.Text = "one sheet";
+            this.checkOneSheet.UseVisualStyleBackColor = true;
+            // 
             // buttonExport
             // 
-            this.buttonExport.Location = new System.Drawing.Point(458, 67);
+            this.buttonExport.Location = new System.Drawing.Point(401, 54);
+            this.buttonExport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonExport.Name = "buttonExport";
-            this.buttonExport.Size = new System.Drawing.Size(138, 36);
+            this.buttonExport.Size = new System.Drawing.Size(121, 29);
             this.buttonExport.TabIndex = 2;
             this.buttonExport.Text = "export to excel";
             this.buttonExport.UseVisualStyleBackColor = true;
@@ -71,9 +96,10 @@
             // textSourceFolder
             // 
             this.textSourceFolder.AllowDrop = true;
-            this.textSourceFolder.Location = new System.Drawing.Point(88, 36);
+            this.textSourceFolder.Location = new System.Drawing.Point(77, 29);
+            this.textSourceFolder.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textSourceFolder.Name = "textSourceFolder";
-            this.textSourceFolder.Size = new System.Drawing.Size(508, 25);
+            this.textSourceFolder.Size = new System.Drawing.Size(445, 21);
             this.textSourceFolder.TabIndex = 1;
             this.textSourceFolder.DragDrop += new System.Windows.Forms.DragEventHandler(this.textPath_DragDrop);
             this.textSourceFolder.DragEnter += new System.Windows.Forms.DragEventHandler(this.textPath_DragEnter);
@@ -81,9 +107,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(39, 39);
+            this.label1.Location = new System.Drawing.Point(34, 31);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 15);
+            this.label1.Size = new System.Drawing.Size(36, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "folder";
             // 
@@ -94,18 +120,21 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.textFromFolder);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(12, 132);
+            this.groupBox2.Location = new System.Drawing.Point(10, 106);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(616, 139);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Size = new System.Drawing.Size(539, 111);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "from excel";
             // 
             // buttonExchange
             // 
-            this.buttonExchange.Location = new System.Drawing.Point(458, 86);
+            this.buttonExchange.Location = new System.Drawing.Point(401, 69);
+            this.buttonExchange.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonExchange.Name = "buttonExchange";
-            this.buttonExchange.Size = new System.Drawing.Size(138, 39);
+            this.buttonExchange.Size = new System.Drawing.Size(121, 31);
             this.buttonExchange.TabIndex = 4;
             this.buttonExchange.Text = "exchange string";
             this.buttonExchange.UseVisualStyleBackColor = true;
@@ -114,9 +143,10 @@
             // textExcelPath
             // 
             this.textExcelPath.AllowDrop = true;
-            this.textExcelPath.Location = new System.Drawing.Point(88, 55);
+            this.textExcelPath.Location = new System.Drawing.Point(77, 44);
+            this.textExcelPath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textExcelPath.Name = "textExcelPath";
-            this.textExcelPath.Size = new System.Drawing.Size(508, 25);
+            this.textExcelPath.Size = new System.Drawing.Size(445, 21);
             this.textExcelPath.TabIndex = 3;
             this.textExcelPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.textPath_DragDrop);
             this.textExcelPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.textPath_DragEnter);
@@ -124,18 +154,19 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(39, 58);
+            this.label3.Location = new System.Drawing.Point(34, 46);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 15);
+            this.label3.Size = new System.Drawing.Size(36, 12);
             this.label3.TabIndex = 2;
             this.label3.Text = "excel";
             // 
             // textFromFolder
             // 
             this.textFromFolder.AllowDrop = true;
-            this.textFromFolder.Location = new System.Drawing.Point(88, 24);
+            this.textFromFolder.Location = new System.Drawing.Point(77, 19);
+            this.textFromFolder.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textFromFolder.Name = "textFromFolder";
-            this.textFromFolder.Size = new System.Drawing.Size(508, 25);
+            this.textFromFolder.Size = new System.Drawing.Size(445, 21);
             this.textFromFolder.TabIndex = 1;
             this.textFromFolder.DragDrop += new System.Windows.Forms.DragEventHandler(this.textPath_DragDrop);
             this.textFromFolder.DragEnter += new System.Windows.Forms.DragEventHandler(this.textPath_DragEnter);
@@ -143,42 +174,24 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(39, 27);
+            this.label2.Location = new System.Drawing.Point(34, 22);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 15);
+            this.label2.Size = new System.Drawing.Size(36, 12);
             this.label2.TabIndex = 0;
             this.label2.Text = "folder";
             // 
-            // checkOneSheet
-            // 
-            this.checkOneSheet.AutoSize = true;
-            this.checkOneSheet.Location = new System.Drawing.Point(88, 77);
-            this.checkOneSheet.Name = "checkOneSheet";
-            this.checkOneSheet.Size = new System.Drawing.Size(95, 19);
-            this.checkOneSheet.TabIndex = 3;
-            this.checkOneSheet.Text = "one sheet";
-            this.checkOneSheet.UseVisualStyleBackColor = true;
-            // 
-            // checkCopyTranslated
-            // 
-            this.checkCopyTranslated.AutoSize = true;
-            this.checkCopyTranslated.Location = new System.Drawing.Point(206, 77);
-            this.checkCopyTranslated.Name = "checkCopyTranslated";
-            this.checkCopyTranslated.Size = new System.Drawing.Size(130, 19);
-            this.checkCopyTranslated.TabIndex = 3;
-            this.checkCopyTranslated.Text = "copy translated";
-            this.checkCopyTranslated.UseVisualStyleBackColor = true;
-            // 
             // FormExchanger
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 283);
+            this.ClientSize = new System.Drawing.Size(560, 226);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormExchanger";
             this.Text = "Lua ↔ Excel (string)";
+            this.Load += new System.EventHandler(this.FormExchanger_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

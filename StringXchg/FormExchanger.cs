@@ -58,5 +58,27 @@ namespace StringXchg
 
             MessageBox.Show("Completed!");
         }
+
+        private void FormExchanger_Load(object sender, EventArgs e)
+        {
+#if DEBUG
+            var args = Environment.GetCommandLineArgs();
+            if (args != null)
+            {
+                if (args.Length == 2)
+                {
+                    _exchanger.OneSheet = true;
+                    _exchanger.CopyTranslated = true;
+                    _exchanger.ExchangeToExcel(args[1]);
+                    Close();
+                }
+                else if (args.Length == 3)
+                {
+                    _exchanger.ExchangeToText(args[2], args[1]);
+                    Close();
+                }
+            }
+#endif
+        }
     }
 }
