@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -32,10 +33,12 @@ namespace DraftHelper
             }
         }
 
+        private static readonly Regex TokenRegex = new Regex(@"[A-Za-z0-9\-_ !@#$%^&*\(\)\[\];'"",\./<>?~\r\n]+", RegexOptions.Compiled);
+
         private List<Tuple<string, string>> BuildReferences(string refFile, string srcCol, string transCol)
         {
             ReportLog("Build References... [{0}] ({1}/{2})", Path.GetFileName(refFile), srcCol, transCol);
-            var dict = new List<Tuple<string, string>>();
+            var dictMap = new Dictionary<string, string>();
             using (var workbook = new XLWorkbook(refFile))
             {
                 var worksheet = workbook.Worksheets.FirstOrDefault();
@@ -50,9 +53,32 @@ namespace DraftHelper
                     var trans = GetValueSafe(worksheet, row, transCol);
 
                     if (!string.IsNullOrWhiteSpace(src) && !string.IsNullOrWhiteSpace(trans))
-                        dict.Add(Tuple.Create(src, trans));
+                    {
+                        if (!dictMap.ContainsKey(src))
+                            dictMap.Add(src, trans);
+
+                        var srcPartials = TokenRegex.Split(src);
+                        var transPartials = TokenRegex.Split(trans);
+                        if (srcPartials.Length == transPartials.Length)
+                        {
+                            foreach (var partialIndex in Enumerable.Range(0, srcPartials.Length))
+                            {
+                                var srcPartial = srcPartials[partialIndex];
+                                var transPartial = transPartials[partialIndex];
+
+                                if (!string.IsNullOrWhiteSpace(srcPartial) && !string.IsNullOrWhiteSpace(transPartial))
+                                {
+                                    if (!dictMap.ContainsKey(srcPartial))
+                                        dictMap.Add(srcPartial, transPartial);
+                                }
+                            }
+                        }
+                    }
                 }
             }
+
+            var dict = dictMap.Select(e => Tuple.Create(e.Key, e.Value)).ToList();
+
             dict.Sort(new Comparison<Tuple<string, string>>((left, right) => right.Item1.Length - left.Item1.Length));
             ReportLog("Find References ({0})", dict.Count);
             return dict;
